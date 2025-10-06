@@ -44,15 +44,26 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    
+                    /*Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => const Interior(),
+                              ),
+                            );
+                  */
                   },
                   child: const Text('I\'m feeling brave.'),
                 ),
                 SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () {
-                    
-                  },
+                    /*Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => const Leave(),
+                              ),
+                            );
+                  */},
                   child: const Text('Absolutely not.'),
                 )
               ],
