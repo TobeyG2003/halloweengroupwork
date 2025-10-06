@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +32,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  late AudioPlayer _audioPlayer;
+
+  @override
+  void initState() {
+      super.initState();
+      _audioPlayer = AudioPlayer();
+      _initAudioPlayer();
+    }
+  Future<void> _initAudioPlayer() async {
+    await _audioPlayer.setAudioSource(
+      AudioSource.asset('assets/halloweennoise.mp3'),
+    );
+    // Automatically play the audio after setting the source
+    _audioPlayer.play();
+  }
+  
 
   @override
   Widget build(BuildContext context) {
