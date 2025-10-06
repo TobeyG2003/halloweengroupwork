@@ -10,11 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Halloween Storybook',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
+      home: const MyHomePage(title: 'Halloween Storybook'),
     );
   }
 }
@@ -36,12 +38,44 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          ],
+      bottomNavigationBar: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    
+                  },
+                  child: const Text('I\'m feeling brave.'),
+                ),
+                SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    
+                  },
+                  child: const Text('Absolutely not.'),
+                )
+              ],
+            ),
+          ),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("scaryhouse.jpg"), fit: BoxFit.cover,),
+            ),
+          ),
+          const Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.only(top: 20.0), // Adjust top padding as needed
+            child: Text(
+              'ENTER... IF YOU DARE',
+              style: TextStyle(fontSize: 40, color: Colors.red, fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
+        ]
       ),
     );
   }
