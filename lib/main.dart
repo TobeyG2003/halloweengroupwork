@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await _audioPlayer.setAudioSource(
       AudioSource.asset('assets/halloweennoise.mp3'),
     );
+    await _audioPlayer.setLoopMode(LoopMode.one);
     // Automatically play the audio after setting the source
     _audioPlayer.play();
   }
@@ -75,13 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () {
-                    /*Navigator.push(
+                    Navigator.push(
                               context,
                               MaterialPageRoute<void>(
-                                builder: (context) => const Leave(),
+                                builder: (context) => Leave(),
                               ),
                             );
-                  */},
+                  },
                   child: const Text('Absolutely not.'),
                 )
               ],
@@ -109,3 +110,86 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+ class Leave extends StatefulWidget {
+      const Leave({super.key});
+
+      @override
+      State<Leave> createState() => _Leave();
+    }
+
+class _Leave extends State<Leave> {
+
+  double _opacity = 0.0; // Start with 0 opacity
+  @override
+      void initState() {
+        super.initState();
+        // Animate the opacity to 1.0 after a short delay
+        Future.delayed(const Duration(milliseconds: 500), () {
+          setState(() {
+            _opacity = 1.0;
+          });
+        });
+      }
+     
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Halloween Storybook'),
+      ),
+      bottomNavigationBar: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => const MyHomePage(title: 'Halloween Storybook'),
+                              ),
+                            );
+                  },
+                  child: const Text('I\'m gonna go back.'),
+                ),
+              ],
+            ),
+          ),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("sunrise.jpg"), fit: BoxFit.cover,),
+            ),
+          ),
+          const Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.only(top: 20.0), // Adjust top padding as needed
+            child: Text(
+              'Congratulations! You survived.',
+              style: TextStyle(fontSize: 40, color: Color.fromARGB(255, 244, 225, 54), fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+
+        Center(
+          child: AnimatedOpacity(
+            opacity: _opacity,
+            duration: const Duration(seconds: 4),
+            curve: Curves.easeIn,
+          child: Text('You are smarter than most horror movie characters by just leaving...',
+          style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+        )))
+        ]
+      ),
+    );
+  }
+}
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
