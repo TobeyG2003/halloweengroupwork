@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       AudioSource.asset('assets/halloweennoise.mp3'),
     );
     await _audioPlayer.setLoopMode(LoopMode.one);
-
+    _audioPlayer.play();
     Timer.periodic(const Duration(seconds: 1), (timer) {
       _moveImage();
     });
