@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'dart:math';
+import 'dart:async';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +36,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   late AudioPlayer _audioPlayer;
+  double _left = 0;
+  double _top = 0;
+  double _left2 = 0;
+  double _top2 = 0;
+  final _random = Random();
 
   @override
   void initState() {
@@ -46,10 +53,21 @@ class _MyHomePageState extends State<MyHomePage> {
       AudioSource.asset('assets/halloweennoise.mp3'),
     );
     await _audioPlayer.setLoopMode(LoopMode.one);
-    // Automatically play the audio after setting the source
-    _audioPlayer.play();
+    
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      _moveImage();
+    });
   }
-  
+  void _moveImage() {
+    setState(() {
+      final screenWidth = MediaQuery.of(context).size.width;
+      final screenHeight = MediaQuery.of(context).size.height;
+      _left = _random.nextDouble() * (screenWidth - 100);
+      _top = _random.nextDouble() * (screenHeight - 100);
+      _left2 = _random.nextDouble() * (screenWidth - 100);
+      _top2 = _random.nextDouble() * (screenHeight - 100);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +113,28 @@ class _MyHomePageState extends State<MyHomePage> {
             image: DecorationImage(image: AssetImage("scaryhouse.jpg"), fit: BoxFit.cover,),
             ),
           ),
+          AnimatedPositioned(
+          duration: const Duration(seconds: 2),
+          curve: Curves.easeInOut,
+          left: _left,
+          top: _top,
+          child: Image.asset(
+            'bat.png',
+            width: 100,
+            height: 100,
+          ),
+        ),
+        AnimatedPositioned(
+          duration: const Duration(seconds: 2),
+          curve: Curves.easeInOut,
+          left: _left2,
+          top: _top2,
+          child: Image.asset(
+            'bat.png',
+            width: 100,
+            height: 100,
+          ),
+        ),
           const Align(
           alignment: Alignment.topCenter,
           child: Padding(
